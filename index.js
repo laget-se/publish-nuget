@@ -24,6 +24,11 @@ class Action {
         throw new Error(msg)
     }
 
+    _printWarning(msg) {
+        console.log(`##[warning]😭 ${msg}`)
+        throw new Error(msg)
+    }
+
     _executeCommand(cmd, options) {
         console.log(`executing: [${cmd}]`)
 
@@ -50,12 +55,8 @@ class Action {
         console.log(`✨ found new version (${version}) of ${name}`)
 
         if (!this.nugetKey) {
-            console.log("##[warning]😢 NUGET_KEY not given")
+            _printWarning("NUGET_KEY not given")
             return
-        }
-        
-        if (this.nuspecFile && !fs.existsSync(this.nuspecFile)) {
-            this._printErrorAndExit("nuspec file not found")
         }
 
         console.log(`NuGet Source: ${this.nugetSource}`)
