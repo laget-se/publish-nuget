@@ -28,7 +28,7 @@ jobs:
         uses: laget-se/publish-nuget@v2
         with:
           # Filepath of the project to be packaged, relative to root of repository
-          PROJECT_FILE_PATH: Core/Core.csproj
+          PROJECT_FILE_PATH: Sdk/Sdk.csproj
           
           # NuGet package id, used for version detection & defaults to project name
           # PACKAGE_NAME: Core
@@ -53,6 +53,9 @@ jobs:
 
           # NuGet server uri hosting the packages, defaults to https://api.nuget.org
           # NUGET_SOURCE: https://api.nuget.org
+          
+          # Filepath of the nuspec to be used, relative to root of repository
+          # NUSPEC_FILE: Sdk/Sdk.nuspec
 
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           # INCLUDE_SYMBOLS: false
@@ -73,6 +76,7 @@ TAG_COMMIT | `true` | Flag to toggle git tagging, enabled by default
 TAG_FORMAT | `v*` | Format of the git tag, `[*]` gets replaced with actual version
 NUGET_KEY | | API key to authenticate with NuGet server
 NUGET_SOURCE | `https://api.nuget.org` | NuGet server uri hosting the packages, defaults to https://api.nuget.org
+NUSPEC_FILE | Flag to toggle pushing symbols along with nuget package to the server, disabled by default
 INCLUDE_SYMBOLS | `false` | Flag to toggle pushing symbols along with nuget package to the server, disabled by default
 
 ## Outputs
@@ -91,4 +95,4 @@ SYMBOLS_PACKAGE_PATH | Path to the generated symbols package
 - Multiple projects can make use of steps to configure each project individually, common inputs between steps can be given as `env` for [job / workflow](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#env)
 
 ## License
-[MIT](LICENSE)
+[Apache-2.0](LICENSE)
