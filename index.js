@@ -53,6 +53,10 @@ class Action {
             console.log("##[warning]😢 NUGET_KEY not given")
             return
         }
+        
+        if (this.nuspecFile && !fs.existsSync(this.nuspecFile)) {
+            this._printErrorAndExit("nuspec file not found")
+        }
 
         console.log(`NuGet Source: ${this.nugetSource}`)
         console.log(`NuGet File: ${this.nuspecFile}`)
@@ -61,7 +65,7 @@ class Action {
 
         this._executeInProcess(`dotnet build -c Release ${this.projectFile}`)
 
-        this._executeInProcess(`dotnet pack ${this.nuspecFile ? "-p:NuspecFile=${this.nuspecFile}" : ""} ${this.includeSymbols ? "--include-symbols -p:SymbolPackageFormat=snupkg" : ""} -p:PackageVersion=${version} --no-build -c Release ${this.projectFile} -o .`)
+        this._executeInProcess(`dotnet pack ${this.nuspecFile ? "-p:NuspecFile=" + this.nuspecFile : ""} ${this.includeSymbols ? "--include-symbols -p:SymbolPackageFormat=snupkg" : ""} -p:PackageVersion=${version} --no-build -c Release ${this.projectFile} -o .`)
 
         const packages = fs.readdirSync(".").filter(fn => fn.endsWith("nupkg"))
         console.log(`Generated Package(s): ${packages.join(", ")}`)
@@ -85,8 +89,9 @@ class Action {
             process.stdout.write(`::set-output name=SYMBOLS_PACKAGE_PATH::${path.resolve(symbolsFilename)}` + os.EOL)
         }
 
-        if (this.tagCommit)
+        if (this.tagCommit) {
             this._tagCommit(version)
+        }
     }
 
     _checkForUpdate() {
@@ -117,8 +122,9 @@ class Action {
     }
 
     run() {
-        if (!this.projectFile || !fs.existsSync(this.projectFile))
+        if (!this.projectFile || !fs.existsSync(this.projectFile)) {
             this._printErrorAndExit("project file not found")
+        }
 
         console.log(`Project Filepath: ${this.projectFile}`)
 
