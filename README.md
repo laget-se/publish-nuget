@@ -5,7 +5,7 @@ GitHub action to build, pack & publish nuget packages automatically when a proje
 Create new `.github/workflows/publish.yml` file:
 
 ```yml
-name: publish to nuget
+name: Publish
 on:
   push:
     branches:
