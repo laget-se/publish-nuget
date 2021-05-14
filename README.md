@@ -1,5 +1,5 @@
 # ✨ Publish NuGet Extended
-GitHub action to build, pack & publish nuget packages automatically when a project version is updated and with extended support for `NuspecFile` nad `PackageVersion`!
+GitHub action to build, pack & publish nuget packages automatically when a project version is updated and with extended support for `NuspecFile` and `PackageVersion`!
 
 ## Usage
 Create new `.github/workflows/publish.yml` file:
