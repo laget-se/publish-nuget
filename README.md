@@ -17,10 +17,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # - name: Setup dotnet
-      #   uses: actions/setup-dotnet@v1
+      # - name: Setup .NET
+      #   uses: actions/setup-dotnet@v3
       #   with:
-      #     dotnet-version: 3.1.200
+      #     dotnet-version: |
+      #       7.0.x
+      #       6.0.x
+      #       3.1.x
 
       # Publish
       - name: publish on version change
