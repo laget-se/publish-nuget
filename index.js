@@ -11,12 +11,12 @@ class Action {
         this.versionFile = process.env.INPUT_VERSION_FILE_PATH || process.env.VERSION_FILE_PATH || this.projectFile
         this.versionRegex = new RegExp(process.env.INPUT_VERSION_REGEX || process.env.VERSION_REGEX, "m")
         this.version = process.env.INPUT_VERSION_STATIC || process.env.VERSION_STATIC
-        this.tagCommit = JSON.parse(process.env.INPUT_TAG_COMMIT || process.env.TAG_COMMIT)
+        //this.tagCommit = JSON.parse(process.env.INPUT_TAG_COMMIT || process.env.TAG_COMMIT)
         this.tagFormat = process.env.INPUT_TAG_FORMAT || process.env.TAG_FORMAT
         this.nugetKey = process.env.INPUT_NUGET_KEY || process.env.NUGET_KEY
         this.nugetSource = process.env.INPUT_NUGET_SOURCE || process.env.NUGET_SOURCE
         this.nuspecFile = process.env.INPUT_NUSPEC_FILE || process.env.NUSPEC_FILE
-        this.includeSymbols = JSON.parse(process.env.INPUT_INCLUDE_SYMBOLS || process.env.INCLUDE_SYMBOLS)
+        this.includeSymbols = process.env.INPUT_INCLUDE_SYMBOLS || process.env.INCLUDE_SYMBOLS
     }
 
     _printErrorAndExit(msg) {
@@ -76,8 +76,9 @@ class Action {
 
         console.log(pushOutput)
 
-        if (/error/.test(pushOutput))
-            this._printErrorAndExit(`${/error.*/.exec(pushOutput)[0]}`)
+        // This is wakko makko, does not work......
+        //if (/error/.test(pushOutput))
+        //    this._printErrorAndExit(`${/error.*/.exec(pushOutput)[0]}`)
 
         const packageFilename = packages.filter(p => p.endsWith(".nupkg"))[0],
             symbolsFilename = packages.filter(p => p.endsWith(".snupkg"))[0]
@@ -124,7 +125,7 @@ class Action {
 
     run() {
         if (!this.projectFile || !fs.existsSync(this.projectFile)) {
-            this._printErrorAndExit("project file not found")
+            this._printErrorAndExit(`project file not found ${this.projectFile}`)
         }
 
         console.log(`Project Filepath: ${this.projectFile}`)
