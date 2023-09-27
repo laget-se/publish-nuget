@@ -1,4 +1,7 @@
 # ✨ Publish NuGet Extended
+> [!WARNING]  
+> As of 2023-09-27, we're no longer maintaining this repository since we've moved from this solution to directly using dotnet CLI.
+
 GitHub action to build, pack & publish nuget packages automatically when a project version is updated and with extended support for `NuspecFile` and `PackageVersion`!
 
 ## Usage
